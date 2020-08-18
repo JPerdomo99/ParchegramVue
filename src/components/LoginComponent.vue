@@ -21,6 +21,7 @@
 <script>
 import axios from 'axios'
 import { mapMutations } from 'vuex'
+import { avatarMixin } from '@/mixins/Avatar.js'
 import CarouselLoginComponent from '@/components/CarouselLoginComponent.vue'
 
 export default {
@@ -33,6 +34,7 @@ export default {
     marginTop: Number,
     labelPosition: String
   },
+  mixins: [avatarMixin],
   data () {
     return {
       loginModel: {
@@ -126,10 +128,6 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    },
-    getUrlAvatarImage (imageProfile) {
-      const avatarBlob = `data:image/png;base64,${imageProfile}`
-      return avatarBlob
     },
     ...mapMutations(['loginNav', 'logoutNav', 'setImageProfile'])
   },
