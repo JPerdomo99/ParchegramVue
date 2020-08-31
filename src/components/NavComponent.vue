@@ -28,12 +28,14 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { avatarMixin } from '@/mixins/Avatar.js'
 
 export default {
+  name: 'NavComponent',
+  mixins: [avatarMixin],
   data () {
     return {
-      activeIndex: '1',
-      avatarDefault: require('@/assets/avatarDefault.png')
+      activeIndex: '1'
     }
   },
   methods: {

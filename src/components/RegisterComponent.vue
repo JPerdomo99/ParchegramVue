@@ -107,12 +107,7 @@ export default {
                   axios
                     .post('https://localhost:44377/api/User/Register', registerRequest)
                     .then(result => {
-                      if (result.status === 200 && result.data.data.token) {
-                        const dataResponse = result.data.data
-                        this.$session.start()
-                        this.$session.set('jwt', dataResponse.token)
-                        this.$session.set('email', dataResponse.email)
-                        this.$session.set('nameUser', dataResponse.nameUser)
+                      if (result.data.succes === 1) {
                         this.$notify({
                           title: 'Exito!',
                           message: 'Te has registrado exitosamente, ahora revisa tu correo para confirmar tu cuenta',

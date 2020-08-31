@@ -7,7 +7,7 @@
                 <el-input type="text" v-model="loginModel.NameUser"></el-input>
               </el-form-item>
               <el-form-item label="Contraseña" prop="Password">
-                <el-input type="password" v-model="loginModel.Password" @keyup.enter="submit('loginModel')"></el-input>
+                <el-input @keyup.enter.native="submit('loginModel')" type="password" v-model="loginModel.Password"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submit('loginModel')">Ingresar</el-button>
@@ -128,6 +128,9 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    showMessageTest () {
+      console.log('Mensaje de prueba')
     },
     ...mapMutations(['loginNav', 'logoutNav', 'setImageProfile'])
   },
