@@ -36,14 +36,40 @@ export default {
     async addLike () {
       await this.addLikeOperation()
     },
-    deleteLike () {
-      this.deleteLikeOperation()
+    async deleteLike () {
+      await this.deleteLikeOperation()
     },
     async addLikeOperation () {
-
+      await axios
+        .post('https://localhost:44377/api/Like/Add', this.buildModel())
+        .then(result => {
+          if (result.data.success === 1) {
+            this.addLikeSet()
+          } else {
+            console.log(result.data.message)
+            this.notifyError('Ups!', 'No se ha podido agregar el like')
+          }
+        })
+        .catch(error => {
+          console.error(error)
+          this.notifyError('Ups!', 'Ha ocurrido un error al tratar de agregar el like')
+        })
     },
-    deleteLikeOperation () {
-
+    async deleteLikeOperation () {
+      await axios
+        .delete(`https://localhost:44377/api/Like/Delete/${this.idPost}/${this.$session.get('nameUser')}`)
+        .then(result => {
+          if (result.data.success === 1) {
+            this.deleteLikeSet()
+          } else {
+            console.log(result.data.message)
+            this.notifyError('Ups!', 'No se ha podido eliminar el like')
+          }
+        })
+        .catch(error => {
+          console.error(error)
+          this.notifyError('Ups!', 'Ha ocurrido un error al tratar de eliminar el like')
+        })
     },
     addLikeSet () {
       this.likeUser = true
@@ -52,6 +78,13 @@ export default {
     deleteLikeSet () {
       this.likeUser = false
       this.numberLikes -= 1
+    },
+    buildModel () {
+      const likeRequest = {
+        idPost: this.idPost,
+        nameUser: this.$session.get('nameUser')
+      }
+      return likeRequest
     }
   },
   mounted () {
