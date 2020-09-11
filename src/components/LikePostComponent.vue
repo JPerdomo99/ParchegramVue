@@ -34,39 +34,35 @@ export default {
   },
   methods: {
     async addLike () {
-      await this.addLikeOperation()
-    },
-    async deleteLike () {
-      await this.deleteLikeOperation()
-    },
-    async addLikeOperation () {
+      this.addLikeSet()
       await axios
         .post('https://localhost:44377/api/Like/Add', this.buildModel())
         .then(result => {
-          if (result.data.success === 1) {
-            this.addLikeSet()
-          } else {
+          if (result.data.success !== 1) {
+            this.deleteLikeSet()
             console.log(result.data.message)
             this.notifyError('Ups!', 'No se ha podido agregar el like')
           }
         })
         .catch(error => {
+          this.deleteLikeSet()
           console.error(error)
           this.notifyError('Ups!', 'Ha ocurrido un error al tratar de agregar el like')
         })
     },
-    async deleteLikeOperation () {
+    async deleteLike () {
+      this.deleteLikeSet()
       await axios
         .delete(`https://localhost:44377/api/Like/Delete/${this.idPost}/${this.$session.get('nameUser')}`)
         .then(result => {
-          if (result.data.success === 1) {
-            this.deleteLikeSet()
-          } else {
+          if (result.data.success !== 1) {
+            this.addLikeSet()
             console.log(result.data.message)
             this.notifyError('Ups!', 'No se ha podido eliminar el like')
           }
         })
         .catch(error => {
+          this.addLikeSet()
           console.error(error)
           this.notifyError('Ups!', 'Ha ocurrido un error al tratar de eliminar el like')
         })
