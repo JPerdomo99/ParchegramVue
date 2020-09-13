@@ -2,7 +2,7 @@
   <div class="listPostComponent"
   v-infinite-scroll="loadMore"
   :infinite-scroll-disabled="disabled">
-    <el-card v-for="post in posts" :key="post.idPost"
+    <el-card v-for="(post, index) in posts" :key="index"
     :body-style="{ padding: '0px' }"
     class="box-card post-card">
       <div slot="header" class="clearfix post-card-header">
@@ -23,8 +23,9 @@
       :src="getImage(post.file)" alt=""
       width="100%" class="image">
       <LikePostComponent :likeUserProp="post.likeUser" :numberLikesProp="post.numberLikes" :idPostProp="post.idPost"></LikePostComponent>
+      <CommentComponent :idPost="post.idPost"></CommentComponent>
     </el-card>
-    <p v-if="noMore" class="no-more">No hay mas publicaciones para mostrar</p>
+    <NoMoreComponent :showNoMore="noMore"></NoMoreComponent>
     <SpinnerComponent :showSpinner="scrollLoading"></SpinnerComponent>
   </div>
 </template>
@@ -35,14 +36,18 @@ import moment from 'moment'
 import infiniteScroll from 'vue-infinite-scroll'
 import { avatarMixin } from '@/mixins/Avatar.js'
 import { commonMixin } from '@/mixins/Common.js'
-import LikePostComponent from '@/components/LikePostComponent.vue'
+import NoMoreComponent from '@/components/NoMoreComponent.vue'
 import SpinnerComponent from '@/components/SpinnerComponent.vue'
+import CommentComponent from '@/components/CommentComponent.vue'
+import LikePostComponent from '@/components/LikePostComponent.vue'
 
 export default {
   name: 'ListPostComponent',
   components: {
     LikePostComponent,
-    SpinnerComponent
+    NoMoreComponent,
+    SpinnerComponent,
+    CommentComponent
   },
   directives: {
     infiniteScroll,
@@ -52,7 +57,7 @@ export default {
   data () {
     return {
       posts: [],
-      page: 0,
+      page: 1,
       totalRows: 0,
       disabled: false,
       full: false
@@ -70,25 +75,27 @@ export default {
     async loadMore () {
       // Si no hay mas post no haga mas peticiones
       if (!this.full) {
-        this.page++
         this.disabled = true
         await axios
           .get(`https://localhost:44377/api/Post/GetPosts/${this.$session.get('nameUser')}/${this.page}`)
           .then(result => {
             console.log(result)
             if (result.data.success === 1) {
-              this.totalRows = result.data.data.totalRows
-              const posts = result.data.data.postList
+              const data = result.data.data
+              this.totalRows = data.totalRows
+              const posts = data.postList
               posts.forEach(post => {
                 this.posts.push(post)
               })
               this.full = ((this.posts).length === this.totalRows)
-              this.disabled = false
-              this.page = result.data.data.currentPage
             } else {
               console.log('Respuesta erronea!')
-              this.disabled = false
             }
+          })
+          .then(() => {
+            this.page++
+            this.disabled = false
+            console.error(this.page)
           })
           .catch(error => {
             console.error(error)
@@ -131,11 +138,5 @@ export default {
   .nameUser {
     font-size: 15px;
     font-weight: 600;
-  }
-  .no-more {
-    text-align: center;
-    padding: 25px;
-    font-size: 20px;
-    color: #828387;
   }
 </style>
