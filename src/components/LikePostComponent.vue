@@ -99,7 +99,6 @@ export default {
   }
   .heart {
     width: 20px;
-    padding-left: 15px;
     padding-right: 5px;
     cursor: pointer;
   }

@@ -22,8 +22,10 @@
       <img v-if="post.idTypePost === 1"
       :src="getImage(post.file)" alt=""
       width="100%" class="image">
-      <LikePostComponent :likeUserProp="post.likeUser" :numberLikesProp="post.numberLikes" :idPostProp="post.idPost"></LikePostComponent>
-      <CommentComponent :idPost="post.idPost"></CommentComponent>
+      <div :style="{ paddingLeft: '15px', paddingRight: '15px' }">
+        <LikePostComponent :likeUserProp="post.likeUser" :numberLikesProp="post.numberLikes" :idPostProp="post.idPost"></LikePostComponent>
+        <CommentComponent :idPost="post.idPost"></CommentComponent>
+      </div>
     </el-card>
     <NoMoreComponent :showNoMore="noMore"></NoMoreComponent>
     <SpinnerComponent :showSpinner="scrollLoading"></SpinnerComponent>
@@ -44,10 +46,10 @@ import LikePostComponent from '@/components/LikePostComponent.vue'
 export default {
   name: 'ListPostComponent',
   components: {
-    LikePostComponent,
     NoMoreComponent,
     SpinnerComponent,
-    CommentComponent
+    CommentComponent,
+    LikePostComponent
   },
   directives: {
     infiniteScroll,
@@ -79,7 +81,6 @@ export default {
         await axios
           .get(`https://localhost:44377/api/Post/GetPosts/${this.$session.get('nameUser')}/${this.page}`)
           .then(result => {
-            console.log(result)
             if (result.data.success === 1) {
               const data = result.data.data
               this.totalRows = data.totalRows
@@ -89,13 +90,12 @@ export default {
               })
               this.full = ((this.posts).length === this.totalRows)
             } else {
-              console.log('Respuesta erronea!')
+              console.error('Respuesta erronea!')
             }
           })
           .then(() => {
             this.page++
             this.disabled = false
-            console.error(this.page)
           })
           .catch(error => {
             console.error(error)

@@ -2,7 +2,6 @@ export const commonMixin = {
   data () {
     return {
       loading: false,
-      test1: 123,
       imageExtensions: ['image/jpeg', 'image/jpg', 'image/png', 'image/x-icon', 'image/svg+xml', 'image/gif'],
       videoExtensions: ['video/mp4', 'video/x-ms-wmv', 'video/3gpp', 'video/avi'],
       heartRegular: require('@/assets/svg/heart-regular.svg'),
@@ -41,6 +40,9 @@ export const commonMixin = {
     getImage (image) {
       const imageBlob = `data:image/png;base64,${image}`
       return imageBlob
+    },
+    getNameUser () {
+      return this.$session.get('nameUser')
     }
   }
 }

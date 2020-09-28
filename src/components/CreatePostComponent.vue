@@ -56,7 +56,7 @@ export default {
       },
       rules: {
         Description: [
-          { min: 1, max: 500, message: 'De 1 a 500 carácteres', trigger: ['blur', 'change'] }
+          { min: 0, max: 500, message: 'De 1 a 500 carácteres', trigger: ['blur', 'change'] }
         ]
       }
     }
@@ -88,7 +88,7 @@ export default {
     async savePost (postModel, fileUpload) {
       this.defineTypePost()
       this.showLoading()
-      if (this.$session.get('nameUser')) {
+      if (this.$session.exists()) {
         await axios
           .post('https://localhost:44377/api/Post/Create', this.buildFormData())
           .then(result => {
@@ -102,7 +102,7 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error)
+            console.error(error)
             this.hiddenLoading()
             this.notifyError('Ups!', 'Ha ocurrido un error al publicar el post')
           })
@@ -147,10 +147,10 @@ export default {
 
 <style>
     .el-textarea__inner {
-      background: #f9f9f9 !important;
-      border: none !important;
-      resize: none !important;
-      border-radius: 25px !important;
+        background: #f9f9f9 !important;
+        border: none !important;
+        resize: none !important;
+        border-radius: 25px !important;
     }
     .homeComponent {
       margin-top: 20px;
