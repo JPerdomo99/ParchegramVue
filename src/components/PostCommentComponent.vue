@@ -2,19 +2,23 @@
   <div class="commentComponent">
     <el-form
     :model="commentModel"
-    ref="commentModel"
     :rules="rules"
-    class="form-comment"
+    ref="commentModel"
     v-loading="loading"
     @submit.native.prevent="submit('commentModel')">
-      <el-form-item prop="CommentText">
+      <el-form-item prop="CommentText" class="form-item-container">
         <el-input
         placeholder="Comenta aqui..."
         v-model="commentModel.CommentText"
-        :rows="1"
-        maxlength="1200"
-        ></el-input>
+        :rows="1">
+        </el-input>
       </el-form-item>
+      <el-button
+      type="primary"
+      icon="el-icon-position button-send-comment"
+      circle
+      @click="submit('commentModel')">
+      </el-button>
     </el-form>
   </div>
 </template>
@@ -22,21 +26,25 @@
 <script>
 import axios from 'axios'
 import { commonMixin } from '@/mixins/Common.js'
-import { CommentMixin } from '@/mixins/Comment.js'
+import { commentMixin } from '@/mixins/Comment.js'
 
 export default {
   name: 'PostCommentComponent',
-  mixins: [commonMixin, CommentMixin],
+  mixins: [commonMixin, commentMixin],
   props: {
     idPost: Number
   },
   data () {
     var lenCommentText = (rule, value, callback) => {
-      if (value.length === 0) return callback(new Error('Dejale saber que piensas🤔'))
-      if (value.length > 500) return callback(new Error('Piensas demasiado🧠'))
+      if (value.length === 0) {
+        return callback(new Error('Dejale saber que piensas🤔'))
+      } else if (value.length > 500) {
+        return callback(new Error('Piensas demasiado🧠'))
+      } else {
+        return callback()
+      }
     }
     return {
-      listComment: [],
       commentModel: {
         CommentText: '',
         NameUser: '',
@@ -44,13 +52,13 @@ export default {
       },
       rules: {
         CommentText: [
-          { validator: lenCommentText, trigger: 'change' }
+          { validator: lenCommentText, trigger: ['blur', 'change'] }
         ]
       }
     }
   },
   methods: {
-    async submit (commentModel) {
+    submit (commentModel) {
       this.$refs[commentModel].validate(async (valid) => {
         if (!valid) {
           this.notifyError('Ups!', 'Revisa tu comentario')
@@ -87,7 +95,7 @@ export default {
         })
     },
     buildBody () {
-      this.commentModel.NameUser = this.$session.get('nameUser')
+      this.commentModel.NameUser = this.getNameUser()
       this.commentModel.IdPost = this.idPost
     }
   },
@@ -96,6 +104,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  form {
+    display: flex;
+  }
+  form .el-form-item {
+    width: 94%;
+  }
+  .el-button {
+    height: min-content;
+    margin-left: 1%;
+  }
+</style>
 
 <style>
 .commentComponent .el-form .el-form-item .el-form-item__content .el-input .el-input__inner {

@@ -1,6 +1,6 @@
 <template>
   <div class="commentComponent">
-    <ListCommentComponent :listCommentProp="listComment"></ListCommentComponent>
+    <ListCommentComponent :idPost="idPost" :listCommentProp="listComment" @setListCommentEvent="setListComment"></ListCommentComponent>
     <PostCommentComponent :idPost="idPost" @setListCommentEvent="setListComment"></PostCommentComponent>
   </div>
 </template>

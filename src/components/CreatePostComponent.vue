@@ -4,17 +4,17 @@
         <h4 class="titleNewPost">Nueva publicación</h4>
         <el-form
         :model="postModel"
-        ref="postModel"
-        :rules="rules">
+        :rules="rules"
+        ref="postModel">
           <el-form-item class="textarea-form-item" prop="Description">
             <el-input
+            placeholder="Que estas pensando...?"
             type="textarea"
             v-model="postModel.Description"
             :rows="3"
             maxlength="500"
             show-word-limit
-            class="postDescription"
-            >
+            class="postDescription">
             </el-input>
           </el-form-item>
           <el-form-item class="upload-file-form-item">
@@ -27,8 +27,7 @@
               action="https://localhost:44377/api/Post/ActionUpload"
               :auto-upload="true"
               :on-change="handleChange"
-              :before-upload="beforeFileUpload"
-              >
+              :before-upload="beforeFileUpload">
               <el-button icon="el-icon-upload2" circle></el-button>
               </el-upload>
               <el-button type="primary" class="upload" round @click="submit('postModel', 'fileUpload')">Publicar</el-button>
@@ -48,16 +47,16 @@ export default {
   mixins: [commonMixin],
   data () {
     return {
+      rules: {
+        Description: [
+          { min: 0, max: 500, message: 'De 1 a 500 carácteres', trigger: ['blur', 'change'] }
+        ]
+      },
       postModel: {
         Description: '',
         File: Object,
         IdUser: 0,
         IdTypePost: 0
-      },
-      rules: {
-        Description: [
-          { min: 0, max: 500, message: 'De 1 a 500 carácteres', trigger: ['blur', 'change'] }
-        ]
       }
     }
   },
@@ -78,6 +77,7 @@ export default {
     },
     submit (postModel, fileUpload) {
       this.$refs[postModel].validate(async (valid) => {
+        debugger
         if (valid) {
           (Object.entries(this.postModel.File).length > 0 || this.postModel.Description !== '') ? this.savePost(postModel, fileUpload) : this.notifyError('Ups!', 'Escribe algo para tus amigos ;)')
         } else {
@@ -97,7 +97,7 @@ export default {
               this.resetPostModel()
               this.notifySuccess('Exito', 'Post publicado correctamente')
             } else {
-              console.log(result.data.message)
+              console.error(result.data.message)
               this.notifyError('Ups!', 'Hubieron problemas al publicar el post')
             }
           })

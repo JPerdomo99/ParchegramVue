@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-export const CommentMixin = {
+export const commentMixin = {
   data () {
     return {
       listComment: []
