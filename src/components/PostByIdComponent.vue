@@ -56,7 +56,9 @@ export default {
         file: '',
         idUserOwner: 0,
         nameUserOwner: '',
-        imageProfileUserOwner: ''
+        imageProfileUserOwner: '',
+        likeUser: Object,
+        numberLikes: 0
       }
     }
   }
