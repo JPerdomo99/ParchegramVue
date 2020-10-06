@@ -21,6 +21,15 @@ export const commentMixin = {
         .catch(error => {
           console.error(error)
         })
+    },
+    lenComment (value, callback) {
+      if (value.length === 0) {
+        return callback(new Error('Dejale saber que piensas🤔'))
+      } else if (value.length > 500) {
+        return callback(new Error('Piensas demasiado🧠'))
+      } else {
+        return callback()
+      }
     }
   }
 }

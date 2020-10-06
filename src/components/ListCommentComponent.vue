@@ -33,26 +33,44 @@
               </el-dropdown>
             </div>
             <div class="comment-text">
-              <el-form v-if="index === indexTarget" label-width="100%">
-                <el-input type="textarea" size="mini" v-model="commentTarget" autosize></el-input>
-                <div class="edit-comment-buttons">
-                  <el-button
-                  @click="editComment(comment.idComment)"
-                  type="primary"
-                  icon="el-icon-position button-send-comment"
-                  plain circle
-                  size="mini">
-                  </el-button>
-                  <el-button
-                    @click="cancelEditComment()"
-                    type="danger"
-                    icon="el-icon-remove-outline button-send-comment"
-                    plain circle
-                    size="mini">
-                  </el-button>
+              <transition name="fade">
+                <div v-if="index === indexTarget"
+                class="comment-text-edit">
+                  <el-input
+                  v-model="commentTarget"
+                  type="textarea"
+                  size="mini"
+                  autosize
+                  ></el-input>
+                  <div v-if="index === indexTarget"
+                  class="edit-comment-buttons">
+                    <transition name="fade2">
+                      <el-button
+                      v-if="!commentTargetInvalid"
+                      @click="editComment(comment.idComment)"
+                      type="primary"
+                      icon="el-icon-position button-send-comment"
+                      plain circle
+                      size="mini">
+                      </el-button>
+                    </transition>
+                    <el-button
+                      @click="cancelEditComment()"
+                      type="danger"
+                      icon="el-icon-remove-outline button-send-comment"
+                      plain circle
+                      size="mini">
+                    </el-button>
+                  </div>
+                  <transition name="fade">
+                    <div v-if="commentTargetInvalid"
+                    class="el-form-item__error commentInvalidEditMessage">
+                      {{ commentInvalidEditMessage }}
+                    </div>
+                  </transition>
                 </div>
-              </el-form>
-              <p v-else>{{ comment.commentText }}</p>
+                <p v-else>{{ comment.commentText }}</p>
+              </transition>
             </div>
         </div>
       </el-container>
@@ -74,6 +92,8 @@ export default {
   },
   data () {
     return {
+      commentTargetInvalid: false,
+      commentInvalidEditMessage: '',
       indexTarget: -1,
       commentTarget: '',
       commentModel: {
@@ -81,6 +101,20 @@ export default {
         CommentText: '',
         NameUser: '',
         IdPost: 0
+      }
+    }
+  },
+  watch: {
+    commentTarget () {
+      if (this.commentTarget.length === 0) {
+        this.commentInvalidEditMessage = 'Dejale saber que piensas🤔'
+        this.commentTargetInvalid = true
+      } else if (this.commentTarget.length > 500) {
+        this.commentInvalidEditMessage = 'Piensas demasiado🧠'
+        this.commentTargetInvalid = true
+      } else {
+        this.commentInvalidEditMessage = ''
+        this.commentTargetInvalid = false
       }
     }
   },
@@ -109,8 +143,6 @@ export default {
         .put('https://localhost:44377/api/Comment/Update', this.commentModel)
         .then(result => {
           if (result.data.success === 1) {
-            console.log(this.listCommentProp)
-            console.log('Éxito al editar el comentario')
             this.listCommentProp[this.indexTarget].commentText = this.commentTarget
           } else {
             console.error(result.data.message)
@@ -177,6 +209,12 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0
 }
+.fade2-enter-active, .fade2-leave-active {
+  transition: opacity .4s
+}
+.fade2-enter, .fade2-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
 .el-dropdown-menu {
   border-radius: 8px;
 }
@@ -191,9 +229,14 @@ export default {
 }
 .edit-comment-buttons {
   display: flex;
+  justify-content: flex-end;
 }
 form {
   display: inline-flex;
+}
+.commentInvalidEditMessage {
+  position: static;
+  padding-top: 6px;
 }
 </style>
 

@@ -4,7 +4,7 @@
         <el-main>
             <el-row type="flex" justify="center">
                 <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
-                    <el-card shadow="never" v-loading="loading">
+                    <el-card class="box-card" v-loading="loading">
                       <span :style="{ fontSize: fontSize + 'px' }">Ajusta tu cuenta!</span>
                       <el-form
                       :model="userConfigModel"

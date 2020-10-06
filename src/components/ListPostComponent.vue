@@ -5,6 +5,23 @@
     <el-card v-for="(post, index) in posts" :key="index"
     :body-style="{ padding: '0px' }"
     class="box-card post-card">
+      <div v-if="post.idUserShare !== 0"
+      slot="header"
+      :style="{ marginBottom: '10px' }"
+      class="clearfix post-card-header">
+          <div class="post-user">
+            <el-avatar v-if="post.imageProfileUserShare !== null"
+            :src="getUrlAvatarImage(post.imageProfileUserShare)"
+            class="avatar" :size="25"></el-avatar>
+            <el-avatar v-else :size="25" :src="avatarDefault"
+            class="avatar"></el-avatar>
+            <span class="nameUser">{{ post.nameUserShare }}</span>
+            </div>
+          <div class="post-date">
+            <span>Compartido hace </span>
+            <span>{{ getDate(post.dateShare) }}</span>
+          </div>
+      </div>
       <div slot="header" class="clearfix post-card-header">
         <div class="post-user">
           <el-avatar v-if="post.imageProfileUserOwner !== null"
@@ -81,6 +98,7 @@ export default {
         await axios
           .get(`https://localhost:44377/api/Post/GetPosts/${this.$session.get('nameUser')}/${this.page}`)
           .then(result => {
+            console.log(result)
             if (result.data.success === 1) {
               const data = result.data.data
               this.totalRows = data.totalRows
@@ -107,6 +125,9 @@ export default {
     },
     getDate (date) {
       return moment(date, 'YYYY-MM-DDTHH:mm:ss.SSS', 'es').fromNow()
+    },
+    showPostById (post) {
+
     }
   },
   async mounted () {
