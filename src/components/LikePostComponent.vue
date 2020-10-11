@@ -102,4 +102,4 @@ export default {
     padding-right: 5px;
     cursor: pointer;
   }
-</style>>
+</style>

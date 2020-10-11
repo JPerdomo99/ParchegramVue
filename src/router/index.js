@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Authentication from '../views/Authentication.vue'
 import UserConfig from '../views/UserConfig.vue'
+import PostById from '../views/PostById.vue'
 import ConfirmEmail from '../components/ConfirmEmailComponent.vue'
 import store from '../store/index.js'
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/userConfig',
     name: 'UserConfig',
     component: UserConfig
+  },
+  {
+    path: '/post/:id',
+    name: 'Post',
+    component: PostById
   }
 ]
 

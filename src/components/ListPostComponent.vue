@@ -51,7 +51,6 @@
 
 <script>
 import axios from 'axios'
-import moment from 'moment'
 import infiniteScroll from 'vue-infinite-scroll'
 import { avatarMixin } from '@/mixins/Avatar.js'
 import { commonMixin } from '@/mixins/Common.js'
@@ -69,8 +68,7 @@ export default {
     LikePostComponent
   },
   directives: {
-    infiniteScroll,
-    moment
+    infiniteScroll
   },
   mixins: [avatarMixin, commonMixin],
   data () {
@@ -122,9 +120,6 @@ export default {
             this.disabled = false
           })
       }
-    },
-    getDate (date) {
-      return moment(date, 'YYYY-MM-DDTHH:mm:ss.SSS', 'es').fromNow()
     },
     showPostById (post) {
 

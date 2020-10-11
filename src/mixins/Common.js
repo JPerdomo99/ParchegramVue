@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 export const commonMixin = {
   data () {
     return {
@@ -43,6 +45,9 @@ export const commonMixin = {
     },
     getNameUser () {
       return this.$session.get('nameUser')
+    },
+    getDate (date) {
+      return moment(date, 'YYYY-MM-DDTHH:mm:ss.SSS', 'es').fromNow()
     }
   }
 }

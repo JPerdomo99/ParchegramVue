@@ -41,6 +41,7 @@
                   type="textarea"
                   size="mini"
                   autosize
+                  autofocus
                   ></el-input>
                   <div v-if="index === indexTarget"
                   class="edit-comment-buttons">
@@ -85,11 +86,11 @@ import { commentMixin } from '@/mixins/Comment.js'
 
 export default {
   name: 'ListCommentComponent',
-  mixins: [commonMixin, commentMixin],
   props: {
     idPost: Number,
     listCommentProp: Array
   },
+  mixins: [commonMixin, commentMixin],
   data () {
     return {
       commentTargetInvalid: false,
