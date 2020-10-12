@@ -2,8 +2,6 @@
   <div id="app">
     <div id="nav">
       <NavComponent></NavComponent>
-      <!-- <router-link to="/home" v-if="token">Home</router-link>
-      <router-link to="/" v-else>Auth</router-link> -->
     </div>
     <router-view/>
   </div>

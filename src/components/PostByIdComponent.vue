@@ -23,7 +23,9 @@
           :src="getImage(post.file)" alt=""
           width="100%" class="image">
           <div :style="{ paddingLeft: '15px', paddingRight: '15px' }">
-            <LikePostComponent :likeUserProp="post.likeUser"
+            <LikePostComponent
+            v-if="showLike"
+            :likeUserProp="post.likeUser"
             :numberLikesProp="post.numberLikes"
             :idPostProp="post.idPost">
             </LikePostComponent>
@@ -67,9 +69,10 @@ export default {
         idUserOwner: 0,
         nameUserOwner: '',
         imageProfileUserOwner: '',
-        likeUser: Boolean,
+        likeUser: false,
         numberLikes: 0
-      }
+      },
+      showLike: false
     }
   },
   methods: {
@@ -77,7 +80,9 @@ export default {
       await axios
         .get(`https://localhost:44377/api/Post/GetPostById/${this.id}`)
         .then(result => {
+          console.log(result)
           this.setModel(result.data.data)
+          this.showLike = true
         })
         .catch(error => {
           console.error(error)

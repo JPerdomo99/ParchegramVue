@@ -158,7 +158,7 @@ export default {
 </script>
 
 <style scoped>
-  .confirmButton {
-    float: right;
-  }
+.confirmButton {
+  float: right;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="userConfig">
-        <UserConfigComponent :fontSize="30" :marginTop="20"></UserConfigComponent>
+      <UserConfigComponent :fontSize="30" :marginTop="20"></UserConfigComponent>
     </div>
 </template>
 
