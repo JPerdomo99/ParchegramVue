@@ -1,43 +1,45 @@
 <template>
   <div class="postByIdComponent">
-    <el-row type="flex" justify="center">
-      <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
-        <el-card
-        :body-style="{ padding: '0px' }"
-        class="box-card post-card">
-          <div slot="header" class="clearfix post-card-header">
-            <div class="post-user">
-              <el-avatar v-if="post.imageProfileUserOwner !== null"
-              :src="getUrlAvatarImage(post.imageProfileUserOwner)"
-              class="avatar"
-              :size="25">
-              </el-avatar>
-              <el-avatar v-else
-              :src="avatarDefault"
-              :size="25"
-              class="avatar"></el-avatar>
-              <span class="nameUser">{{ post.nameUserOwner }}</span>
+    <transition name="fade">
+      <el-row v-if="show" type="flex" justify="center">
+        <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
+          <el-card
+          :body-style="{ padding: '0px' }"
+          class="box-card post-card">
+            <div slot="header" class="clearfix post-card-header">
+              <div class="post-user">
+                <el-avatar v-if="post.imageProfileUserOwner !== null"
+                :src="getUrlAvatarImage(post.imageProfileUserOwner)"
+                class="avatar"
+                :size="25">
+                </el-avatar>
+                <el-avatar v-else
+                :src="avatarDefault"
+                :size="25"
+                class="avatar"></el-avatar>
+                <span class="nameUser">{{ post.nameUserOwner }}</span>
+              </div>
+              <div class="post-date">
+                <span>{{ getDate(post.date) }}</span>
+              </div>
             </div>
-            <div class="post-date">
-              <span>{{ getDate(post.date) }}</span>
+            <p v-if="post.description !== ''" style="padding: 15px;">{{ post.description }}</p>
+            <img v-if="post.idTypePost === 1"
+            :src="getImage(post.file)" alt=""
+            width="100%" class="image">
+            <div :style="{ paddingLeft: '15px', paddingRight: '15px' }">
+              <LikePostComponent
+              v-if="showLike"
+              :likeUserProp="post.likeUser"
+              :numberLikesProp="post.numberLikes"
+              :idPostProp="post.idPost">
+              </LikePostComponent>
+              <CommentComponent :idPost="id" :limitComments="0"></CommentComponent>
             </div>
-          </div>
-          <p v-if="post.description !== ''" style="padding: 15px;">{{ post.description }}</p>
-          <img v-if="post.idTypePost === 1"
-          :src="getImage(post.file)" alt=""
-          width="100%" class="image">
-          <div :style="{ paddingLeft: '15px', paddingRight: '15px' }">
-            <LikePostComponent
-            v-if="showLike"
-            :likeUserProp="post.likeUser"
-            :numberLikesProp="post.numberLikes"
-            :idPostProp="post.idPost">
-            </LikePostComponent>
-            <CommentComponent :idPost="id" :limitComments="0"></CommentComponent>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+          </el-card>
+        </el-col>
+      </el-row>
+    </transition>
   </div>
 </template>
 
@@ -76,7 +78,8 @@ export default {
         likeUser: false,
         numberLikes: 0
       },
-      showLike: false
+      showLike: false,
+      show: false
     }
   },
   methods: {
@@ -106,6 +109,7 @@ export default {
   },
   async mounted () {
     await this.getPost()
+    this.show = true
   }
 }
 </script>
@@ -113,5 +117,12 @@ export default {
 <style scoped>
 .postByIdComponent {
   margin-top: 20px;
+  margin-bottom: 20px;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-to {
+  transition: opacity 1s;
 }
 </style>

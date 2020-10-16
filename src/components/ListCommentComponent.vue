@@ -18,7 +18,9 @@
                   icon="el-icon-edit"
                   :command="index + comment.commentText">Editar
                   </el-dropdown-item>
-                  <el-dropdown-item :style="{ color: '#FF0000' }">
+                  <el-dropdown-item :style="{ color: '#FF0000' }"
+                  :command="new String()"
+                  >
                     <el-popconfirm
                     confirmButtonText="Si"
                     cancelButtonText="No, Dejalo"
@@ -159,11 +161,12 @@ export default {
         })
     },
     handleCommand (data) {
-      console.log(data)
-      const index = Number.parseInt(data.slice(0, 1))
-      const commentText = data.slice(1)
-      this.indexTarget = index
-      this.commentTarget = commentText
+      if (data.length > 0) {
+        const index = Number.parseInt(data.slice(0, 1))
+        const commentText = data.slice(1)
+        this.indexTarget = index
+        this.commentTarget = commentText
+      }
     },
     cancelEditComment () {
       this.resetCommentModelTarget()

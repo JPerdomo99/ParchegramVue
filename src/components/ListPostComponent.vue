@@ -26,7 +26,7 @@
             <span>{{ getDate(post.dateShare) }}</span>
           </div>
       </div>
-      <div slot="header" class="clearfix post-card-header">
+      <div @click="showPostById(post.idPost)" slot="header" class="clearfix post-card-header">
         <div class="post-user">
           <el-avatar v-if="post.imageProfileUserOwner !== null"
           :src="getUrlAvatarImage(post.imageProfileUserOwner)"
@@ -100,7 +100,6 @@ export default {
         await axios
           .get(`https://localhost:44377/api/Post/GetPosts/${this.$session.get('nameUser')}/${this.page}`)
           .then(result => {
-            console.log(result)
             if (result.data.success === 1) {
               const data = result.data.data
               this.totalRows = data.totalRows
@@ -125,8 +124,8 @@ export default {
           })
       }
     },
-    showPostById (post) {
-
+    showPostById (idPost) {
+      this.$router.push({ name: 'Post', params: { id: idPost } })
     }
   },
   async mounted () {
