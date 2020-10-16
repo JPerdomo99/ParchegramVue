@@ -88,6 +88,7 @@ export default {
   name: 'ListCommentComponent',
   props: {
     idPost: Number,
+    limitComments: Number,
     listCommentProp: Array
   },
   mixins: [commonMixin, commentMixin],
@@ -128,7 +129,7 @@ export default {
         .delete(`https://localhost:44377/api/Comment/Delete/${this.idPost}/${idComment}/${nameUser}`)
         .then(result => {
           if (result.data.success === 1) {
-            this.getListComment(2)
+            this.getListComment(this.limitComments)
           } else {
             console.error(result.data.message)
             this.notifyError('Ups!', 'No se pudo eliminar el comentario')
@@ -158,6 +159,7 @@ export default {
         })
     },
     handleCommand (data) {
+      console.log(data)
       const index = Number.parseInt(data.slice(0, 1))
       const commentText = data.slice(1)
       this.indexTarget = index
@@ -176,6 +178,9 @@ export default {
       this.commentModel.nameUser = this.getNameUser()
       this.commentModel.idPost = this.idPost
     }
+  },
+  async mounted () {
+    await this.getListComment(this.limitComments)
   }
 }
 </script>

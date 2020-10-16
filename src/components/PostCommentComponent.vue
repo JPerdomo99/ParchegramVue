@@ -32,7 +32,8 @@ export default {
   name: 'PostCommentComponent',
   mixins: [commonMixin, commentMixin],
   props: {
-    idPost: Number
+    idPost: Number,
+    limitComments: Number
   },
   data () {
     var lenCommentText = (rule, value, callback) => {
@@ -92,10 +93,10 @@ export default {
       this.commentModel.NameUser = this.getNameUser()
       this.commentModel.IdPost = this.idPost
     }
-  },
-  async mounted () {
-    await this.getListComment(2)
   }
+  // async mounted () {
+  //   await this.getListComment(this.limitComments)
+  // }
 }
 </script>
 

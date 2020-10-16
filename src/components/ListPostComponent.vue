@@ -12,13 +12,17 @@
           <div class="post-user">
             <el-avatar v-if="post.imageProfileUserShare !== null"
             :src="getUrlAvatarImage(post.imageProfileUserShare)"
-            class="avatar" :size="25"></el-avatar>
-            <el-avatar v-else :size="25" :src="avatarDefault"
+            class="avatar"
+            :size="25">
+            </el-avatar>
+            <el-avatar v-else
+            :src="avatarDefault"
+            :size="25"
             class="avatar"></el-avatar>
             <span class="nameUser">{{ post.nameUserShare }}</span>
             </div>
           <div class="post-date">
-            <span>Compartido hace </span>
+            <span>Compartido </span>
             <span>{{ getDate(post.dateShare) }}</span>
           </div>
       </div>
@@ -30,7 +34,7 @@
           <el-avatar v-else :size="25" :src="avatarDefault"
           class="avatar"></el-avatar>
           <span class="nameUser">{{ post.nameUserOwner }}</span>
-          </div>
+        </div>
         <div class="post-date">
           <span>{{ getDate(post.date) }}</span>
         </div>
@@ -41,7 +45,7 @@
       width="100%" class="image">
       <div :style="{ paddingLeft: '15px', paddingRight: '15px' }">
         <LikePostComponent :likeUserProp="post.likeUser" :numberLikesProp="post.numberLikes" :idPostProp="post.idPost"></LikePostComponent>
-        <CommentComponent :idPost="post.idPost"></CommentComponent>
+        <CommentComponent :idPost="post.idPost" :limitComments="2"></CommentComponent>
       </div>
     </el-card>
     <NoMoreComponent :showNoMore="noMore"></NoMoreComponent>
@@ -132,27 +136,30 @@ export default {
 </script>
 
 <style scoped>
-  .post-card {
-    margin-top: 15px !important;
-  }
-  .post-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-  .post-user {
-    display: flex;
-    align-items: flex-end;
-  }
-  .post-date span {
-    font-size: 14px;
-    color: #828387;
-  }
-  .avatar {
-    margin-right: 6px;
-  }
-  .nameUser {
-    font-size: 15px;
-    font-weight: 600;
-  }
+.post-card {
+  margin-top: 15px !important;
+}
+</style>
+
+<style>
+.post-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.post-user {
+  display: flex;
+  align-items: flex-end;
+}
+.post-date span {
+  font-size: 14px;
+  color: #828387;
+}
+.avatar {
+  margin-right: 6px;
+}
+.nameUser {
+  font-size: 15px;
+  font-weight: 600;
+}
 </style>

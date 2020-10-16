@@ -9,11 +9,15 @@
             <div class="post-user">
               <el-avatar v-if="post.imageProfileUserOwner !== null"
               :src="getUrlAvatarImage(post.imageProfileUserOwner)"
-              class="avatar" :size="25"></el-avatar>
-              <el-avatar v-else :size="25" :src="avatarDefault"
+              class="avatar"
+              :size="25">
+              </el-avatar>
+              <el-avatar v-else
+              :src="avatarDefault"
+              :size="25"
               class="avatar"></el-avatar>
               <span class="nameUser">{{ post.nameUserOwner }}</span>
-              </div>
+            </div>
             <div class="post-date">
               <span>{{ getDate(post.date) }}</span>
             </div>
@@ -29,7 +33,7 @@
             :numberLikesProp="post.numberLikes"
             :idPostProp="post.idPost">
             </LikePostComponent>
-            <CommentComponent :idPost="post.idPost"></CommentComponent>
+            <CommentComponent :idPost="id" :limitComments="0"></CommentComponent>
           </div>
         </el-card>
       </el-col>
@@ -62,13 +66,13 @@ export default {
     return {
       post: {
         idPost: 0,
-        datePost: '',
+        date: '',
         idTypePost: 0,
         description: '',
         file: '',
         idUserOwner: 0,
         nameUserOwner: '',
-        imageProfileUserOwner: '',
+        imageProfileUserOwner: null,
         likeUser: false,
         numberLikes: 0
       },
@@ -80,7 +84,6 @@ export default {
       await axios
         .get(`https://localhost:44377/api/Post/GetPostById/${this.id}`)
         .then(result => {
-          console.log(result)
           this.setModel(result.data.data)
           this.showLike = true
         })
@@ -90,12 +93,13 @@ export default {
     },
     setModel (data) {
       this.post.idPost = data.idPost
-      this.post.datePost = data.date
+      this.post.date = data.date
       this.post.idTypePost = data.idTypePost
       this.post.description = data.description
       this.post.file = data.file
       this.post.idUserOwner = data.idUserOwner
       this.post.nameUserOwner = data.nameUserOwner
+      this.post.imageProfileUserOwner = data.imageProfileUserOwner
       this.post.likeUser = data.likeUser
       this.post.numberLikes = data.numberLikes
     }
@@ -106,6 +110,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.postByIdComponent {
+  margin-top: 20px;
+}
 </style>
