@@ -2,24 +2,39 @@
     <div class="navComponent">
         <el-menu :default-active="activeIndex" active-text-color="#409EFF" class="nav-bar" mode="horizontal">
             <div class="title">
-                <el-menu-item><h1>Parchegram</h1></el-menu-item>
+                <el-menu-item><router-link class="router-link" :to="{ name: 'Home' }"><h1>Parchegram</h1></router-link></el-menu-item>
             </div>
             <div class="search" v-if="loginState">
-                <el-menu-item class="item"><el-input
-                placeholder="Buscar"
-                prefix-icon="el-icon-search"
-                class="search-text"
-                size="small">
-                </el-input></el-menu-item>
+                <el-menu-item class="item">
+                  <el-input
+                  placeholder="Buscar"
+                  prefix-icon="el-icon-search"
+                  class="search-text"
+                  size="small">
+                  </el-input>
+                </el-menu-item>
             </div>
             <div class="menu-items" v-if="loginState">
                 <el-menu-item class="item" index="1"><i class="el-icon-s-home"></i></el-menu-item>
                 <el-menu-item class="item"><i class="el-icon-chat-dot-round"></i></el-menu-item>
-                <el-menu-item class="item"><router-link to="/userConfig"><i class="el-icon-setting"></i></router-link></el-menu-item>
-                <el-menu-item @click="logout()"><i class="el-icon-turn-off"></i></el-menu-item>
-                <el-menu-item class="item">
-                  <el-avatar v-if="imageProfile !== ''" :size="25" :src="imageProfile"></el-avatar>
-                  <el-avatar v-else :size="25" :src="avatarDefault"></el-avatar>
+                <el-menu-item>
+                  <el-dropdown trigger="click">
+                    <el-avatar class="avatar-nav" v-if="imageProfile !== ''" :size="25" :src="imageProfile"></el-avatar>
+                    <el-avatar class="avatar-nav" v-else :size="25" :src="avatarDefault"></el-avatar>
+                    <el-dropdown-menu>
+                      <router-link class="router-link" :to="{ name: 'UserConfig' }">
+                        <el-dropdown-item
+                        :style="{ color: '#b8c5d1' }"
+                        icon="el-icon-setting">Ajustes
+                        </el-dropdown-item>
+                      </router-link>
+                      <el-dropdown-item
+                      @click="logout()"
+                      :style="{ color: '#FF0000' }"
+                      icon="el-icon-switch-button">Salir
+                      </el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
                 </el-menu-item>
             </div>
         </el-menu>
@@ -68,35 +83,82 @@ export default {
 </script>
 
 <style scoped>
-    @font-face {
-      font-family: 'SummerVibes';
-      src: url('../assets/fonts/Summer Vibes OTF.otf');
-    }
-    h1 {
-      font-family: 'SummerVibes';
-      color: #409EFF;
-      font-size: 32px
-    }
-    i {
-      font-size: 23px !important;
-    }
-    .nav-bar {
-      display: flex;
-      justify-content: space-between;
-    }
-    .menu-items {
-        display: flex;
-    }
-    .el-menu-item:focus {
-      background: transparent;
-    }
-    .el-menu-item:hover{
-      background: transparent;
-    }
-    .el-menu-item.is-active {
-      border-bottom: solid;
-    }
-    .el-icon-turn-off {
-      color: #F56C6C;
-    }
+@font-face {
+  font-family: 'SummerVibes';
+  src: url('../assets/fonts/Summer Vibes OTF.otf');
+}
+.router-link {
+  text-decoration: none;
+}
+h1 {
+  font-family: 'SummerVibes';
+  color: #409EFF;
+  font-size: 32px;
+}
+i {
+  font-size: 23px !important;
+}
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+}
+.menu-items {
+  display: flex;
+}
+.el-menu-item:focus {
+  background: transparent;
+}
+.el-menu-item:hover{
+  background: transparent;
+}
+.el-menu-item.is-active {
+  border-bottom: solid;
+}
+.el-icon-turn-off {
+  color: #F56C6C;
+}
+.avatar-nav {
+  animation-duration: 1.5s;
+  animation-name: orbe;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes orbe {
+  from {
+      box-shadow: 0 0 6px 2px #409EFF;
+  }
+  to {
+      box-shadow: 0 0 3px 1px #409EFF;
+  }
+}
+@media (max-width: 768px) {
+  .search {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    background: #f0f2f5;
+    border-top: 2px solid #DCDFE6;
+  }
+}
+@media (max-width: 450px) {
+  h1 {
+    font-size: 25px;
+  }
+}
+</style>
+
+<style>
+@media (max-width: 768px) {
+  .search {
+    width: 50px;
+  }
+  .search-text {
+    transform: translateY(-5px);
+  }
+}
+.search-text .el-input__inner {
+  border-radius: 15px;
+}
 </style>

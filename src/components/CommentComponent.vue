@@ -1,7 +1,10 @@
 <template>
   <div class="commentComponent">
-    <ListCommentComponent :idPost="idPost" :limitComments="limitComments" :listCommentProp="listComment" @setListCommentEvent="setListComment"></ListCommentComponent>
-    <PostCommentComponent :idPost="idPost" @setListCommentEvent="setListComment"></PostCommentComponent>
+    <ListCommentComponent :idPost="idPost"
+    :limitComments="limitComments"
+    :listCommentProp="listComment"
+    @setListCommentEvent="setListComment"></ListCommentComponent>
+    <PostCommentComponent :idPost="idPost" :saveLimitComments="saveLimitComments" @setListCommentEvent="setListComment"></PostCommentComponent>
   </div>
 </template>
 
@@ -17,7 +20,8 @@ export default {
   },
   props: {
     idPost: Number,
-    limitComments: Number
+    limitComments: Number,
+    saveLimitComments: Number
   },
   data () {
     return {

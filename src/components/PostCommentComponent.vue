@@ -33,7 +33,8 @@ export default {
   mixins: [commonMixin, commentMixin],
   props: {
     idPost: Number,
-    limitComments: Number
+    limitComments: Number,
+    saveLimitComments: Number
   },
   data () {
     var lenCommentText = (rule, value, callback) => {
@@ -74,7 +75,7 @@ export default {
         .post('https://localhost:44377/api/Comment/Create', this.commentModel)
         .then(result => {
           if (result.data.success === 1) {
-            this.getListComment(3)
+            this.getListComment(this.saveLimitComments)
           } else {
             console.error(result.data.message)
             this.notifyError('Ups!', 'Hubieron problemas al publicar el comentario')

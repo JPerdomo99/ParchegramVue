@@ -45,7 +45,7 @@
       width="100%" class="image">
       <div :style="{ paddingLeft: '15px', paddingRight: '15px' }">
         <LikePostComponent :likeUserProp="post.likeUser" :numberLikesProp="post.numberLikes" :idPostProp="post.idPost"></LikePostComponent>
-        <CommentComponent :idPost="post.idPost" :limitComments="2"></CommentComponent>
+        <CommentComponent :idPost="post.idPost" :limitComments="2" :saveLimitComments="3"></CommentComponent>
       </div>
     </el-card>
     <NoMoreComponent :showNoMore="noMore"></NoMoreComponent>

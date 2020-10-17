@@ -7,6 +7,7 @@
             <div class="header-comment">
               <strong>{{ comment.nameUser }}</strong>
               <el-dropdown
+              class="actions-comment"
               @command="handleCommand"
               v-if="comment.nameUser === getNameUser() && index !== indexTarget"
               placement="top-start"
@@ -14,11 +15,13 @@
               size="mini">
                 <i class="el-icon-more"></i>
                 <el-dropdown-menu>
-                  <el-dropdown-item :style="{ color: '#b8c5d1' }"
+                  <el-dropdown-item
+                  :style="{ color: '#b8c5d1' }"
                   icon="el-icon-edit"
                   :command="index + comment.commentText">Editar
                   </el-dropdown-item>
-                  <el-dropdown-item :style="{ color: '#FF0000' }"
+                  <el-dropdown-item
+                  :style="{ color: '#FF0000' }"
                   :command="new String()"
                   >
                     <el-popconfirm
@@ -246,6 +249,9 @@ form {
 .commentInvalidEditMessage {
   position: static;
   padding-top: 6px;
+}
+.actions-comment {
+  margin-left: 5px;
 }
 </style>
 

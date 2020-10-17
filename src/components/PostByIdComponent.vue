@@ -34,7 +34,7 @@
               :numberLikesProp="post.numberLikes"
               :idPostProp="post.idPost">
               </LikePostComponent>
-              <CommentComponent :idPost="id" :limitComments="0"></CommentComponent>
+              <CommentComponent :idPost="id" :limitComments="0" :saveLimitComments="0"></CommentComponent>
             </div>
           </el-card>
         </el-col>
