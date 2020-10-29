@@ -40,14 +40,26 @@ export const commonMixin = {
       return size <= limit
     },
     getImage (image) {
-      const imageBlob = `data:image/png;base64,${image}`
-      return imageBlob
+      const IMAGEBLOB = `data:image/png;base64,${image}`
+      return IMAGEBLOB
+    },
+    getVideo (video) {
+      const VIDEOBLOB = `data:video/mp4;base64,${video}`
+      return VIDEOBLOB
     },
     getNameUser () {
       return this.$session.get('nameUser')
     },
     getDate (date) {
       return moment(date, 'YYYY-MM-DDTHH:mm:ss.SSS', 'es').fromNow()
+    },
+    getAge (date) {
+      const A = moment()
+      const B = moment(date, 'YYYY-MM-DDTHH:mm:ss.SSS')
+      return moment.duration(A.diff(B))._data.years
+    },
+    showUserProfile (idUser) {
+      this.$router.push({ name: 'Profile', params: { id: idUser } })
     }
   }
 }

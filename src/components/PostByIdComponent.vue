@@ -8,7 +8,8 @@
           class="box-card post-card">
             <div slot="header" class="clearfix post-card-header">
               <div class="post-user">
-                <el-avatar v-if="post.imageProfileUserOwner !== null"
+                <el-avatar
+                v-if="post.imageProfileUserOwner !== null"
                 :src="getUrlAvatarImage(post.imageProfileUserOwner)"
                 class="avatar"
                 :size="25">
@@ -117,7 +118,7 @@ export default {
 <style scoped>
 .postByIdComponent {
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 70px;
 }
 .fade-enter {
   opacity: 0;

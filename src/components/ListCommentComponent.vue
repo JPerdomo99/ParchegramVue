@@ -5,7 +5,7 @@
         class="comment-container">
         <div class="comment">
             <div class="header-comment">
-              <strong>{{ comment.nameUser }}</strong>
+              <strong @click="showUserProfile(post.idUser)">{{ comment.nameUser }}</strong>
               <el-dropdown
               class="actions-comment"
               @command="handleCommand"

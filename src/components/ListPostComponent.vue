@@ -9,7 +9,8 @@
       slot="header"
       :style="{ marginBottom: '10px' }"
       class="clearfix post-card-header">
-          <div class="post-user">
+          <div class="post-user"
+          @click="showUserProfile(post.IdUserShare)">
             <el-avatar v-if="post.imageProfileUserShare !== null"
             :src="getUrlAvatarImage(post.imageProfileUserShare)"
             class="avatar"
@@ -20,14 +21,15 @@
             :size="25"
             class="avatar"></el-avatar>
             <span class="nameUser">{{ post.nameUserShare }}</span>
-            </div>
+          </div>
           <div class="post-date">
             <span>Compartido </span>
             <span>{{ getDate(post.dateShare) }}</span>
           </div>
       </div>
       <div @click="showPostById(post.idPost)" slot="header" class="clearfix post-card-header">
-        <div class="post-user">
+        <div class="post-user"
+        @click="showUserProfile(post.IdUserOwner)">
           <el-avatar v-if="post.imageProfileUserOwner !== null"
           :src="getUrlAvatarImage(post.imageProfileUserOwner)"
           class="avatar" :size="25"></el-avatar>
@@ -43,6 +45,11 @@
       <img v-if="post.idTypePost === 1"
       :src="getImage(post.file)" alt=""
       width="100%" class="image">
+      <video v-else-if="post.idTypePost === 2"
+      width="100%"
+      controls>
+        <source :src="getVideo(post.file)" type="video/mp4">
+      </video>
       <div :style="{ paddingLeft: '15px', paddingRight: '15px' }">
         <LikePostComponent :likeUserProp="post.likeUser" :numberLikesProp="post.numberLikes" :idPostProp="post.idPost"></LikePostComponent>
         <CommentComponent :idPost="post.idPost" :limitComments="2" :saveLimitComments="3"></CommentComponent>

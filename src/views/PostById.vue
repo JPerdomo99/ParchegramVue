@@ -1,6 +1,6 @@
 <template>
   <div class="postById">
-    <PostByIdComponent :id="Number.parseInt($route.params.id)" ></PostByIdComponent>
+    <PostByIdComponent :id="Number.parseInt($route.params.id)"></PostByIdComponent>
   </div>
 </template>
 

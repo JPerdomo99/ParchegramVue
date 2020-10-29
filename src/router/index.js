@@ -5,6 +5,7 @@ import Authentication from '../views/Authentication.vue'
 import UserConfig from '../views/UserConfig.vue'
 import PostById from '../views/PostById.vue'
 import ConfirmEmail from '../components/ConfirmEmailComponent.vue'
+import UserProfile from '../views/UserProfile.vue'
 import store from '../store/index.js'
 
 Vue.use(VueRouter)
@@ -34,6 +35,11 @@ const routes = [
     path: '/post/:id',
     name: 'Post',
     component: PostById
+  },
+  {
+    path: '/profile/:id',
+    name: 'Profile',
+    component: UserProfile
   }
 ]
 

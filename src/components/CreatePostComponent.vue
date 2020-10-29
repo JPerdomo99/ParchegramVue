@@ -75,11 +75,10 @@ export default {
       }
       return true
     },
-    submit (postModel, fileUpload) {
+    async submit (postModel, fileUpload) {
       this.$refs[postModel].validate(async (valid) => {
-        debugger
         if (valid) {
-          (Object.entries(this.postModel.File).length > 0 || this.postModel.Description !== '') ? this.savePost(postModel, fileUpload) : this.notifyError('Ups!', 'Escribe algo para tus amigos ;)')
+          await (Object.entries(this.postModel.File).length > 0 || this.postModel.Description !== '') ? this.savePost(postModel, fileUpload) : this.notifyError('Ups!', 'Escribe algo para tus amigos ;)')
         } else {
           this.notifyError('Ups!', 'Datos no validos revisa los campos')
         }
