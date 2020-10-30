@@ -2,34 +2,33 @@
   <div class="listPostComponent"
   v-infinite-scroll="loadMore"
   :infinite-scroll-disabled="disabled">
-    <el-card v-for="(post, index) in posts" :key="index"
-    :body-style="{ padding: '0px' }"
+    <el-card v-for="(post, index) in posts" :key="index" :body-style="{ padding: '0px' }"
     class="box-card post-card">
       <div v-if="post.idUserShare !== 0"
       slot="header"
       :style="{ marginBottom: '10px' }"
       class="clearfix post-card-header">
-          <div class="post-user"
-          @click="showUserProfile(post.IdUserShare)">
-            <el-avatar v-if="post.imageProfileUserShare !== null"
-            :src="getUrlAvatarImage(post.imageProfileUserShare)"
-            class="avatar"
-            :size="25">
-            </el-avatar>
-            <el-avatar v-else
-            :src="avatarDefault"
-            :size="25"
-            class="avatar"></el-avatar>
-            <span class="nameUser">{{ post.nameUserShare }}</span>
-          </div>
-          <div class="post-date">
-            <span>Compartido </span>
-            <span>{{ getDate(post.dateShare) }}</span>
-          </div>
-      </div>
-      <div @click="showPostById(post.idPost)" slot="header" class="clearfix post-card-header">
         <div class="post-user"
-        @click="showUserProfile(post.IdUserOwner)">
+        @click="showUserProfile(post.idUserShare, post.NameUserShare)">
+          <el-avatar v-if="post.imageProfileUserShare !== null"
+          :src="getUrlAvatarImage(post.imageProfileUserShare)"
+          class="avatar"
+          :size="25">
+          </el-avatar>
+          <el-avatar v-else
+          :src="avatarDefault"
+          :size="25"
+          class="avatar"></el-avatar>
+          <span class="nameUser">{{ post.nameUserShare }}</span>
+        </div>
+        <div class="post-date">
+          <span>Compartido </span>
+          <span>{{ getDate(post.dateShare) }}</span>
+        </div>
+      </div>
+      <div slot="header" class="clearfix post-card-header">
+        <div class="post-user"
+        @click="showUserProfile(post.idUserOwner, post.nameUserOwner)">
           <el-avatar v-if="post.imageProfileUserOwner !== null"
           :src="getUrlAvatarImage(post.imageProfileUserOwner)"
           class="avatar" :size="25"></el-avatar>
@@ -41,11 +40,11 @@
           <span>{{ getDate(post.date) }}</span>
         </div>
       </div>
-      <p v-if="post.description !== ''" style="padding: 15px;">{{ post.description }}</p>
-      <img v-if="post.idTypePost === 1"
+      <p class="showPostById-action" @click="showPostById(post.idPost)" v-if="post.description !== ''" style="padding: 15px;">{{ post.description }}</p>
+      <img @click="showPostById(post.idPost)" v-if="post.idTypePost === 1"
       :src="getImage(post.file)" alt=""
-      width="100%" class="image">
-      <video v-else-if="post.idTypePost === 2"
+      width="100%" class="image showPostById-action">
+      <video class="showPostById-action" @click="showPostById(post.idPost)" v-else-if="post.idTypePost === 2"
       width="100%"
       controls>
         <source :src="getVideo(post.file)" type="video/mp4">
@@ -78,6 +77,13 @@ export default {
     CommentComponent,
     LikePostComponent
   },
+  props: {
+    idTypePost: {
+      type: Number,
+      default: 0
+    },
+    nameUser: String
+  },
   directives: {
     infiniteScroll
   },
@@ -105,7 +111,7 @@ export default {
       if (!this.full) {
         this.disabled = true
         await axios
-          .get(`https://localhost:44377/api/Post/GetPosts/${this.$session.get('nameUser')}/${this.page}`)
+          .get(`https://localhost:44377/api/Post/GetPosts/${this.nameUser}/${this.page}/${this.idTypePost}`)
           .then(result => {
             if (result.data.success === 1) {
               const data = result.data.data
@@ -145,6 +151,9 @@ export default {
 .post-card {
   margin-top: 15px !important;
 }
+.showPostById-action {
+  cursor: pointer;
+}
 </style>
 
 <style>
@@ -156,6 +165,7 @@ export default {
 .post-user {
   display: flex;
   align-items: flex-end;
+  cursor: pointer;
 }
 .post-date span {
   font-size: 14px;

@@ -3,7 +3,7 @@
         <el-row type="flex" justify="center">
           <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
             <CreatePostComponent></CreatePostComponent>
-            <ListPostComponent></ListPostComponent>
+            <ListPostComponent :nameUser="this.$session.get('nameUser')"></ListPostComponent>
           </el-col>
         </el-row>
     </div>

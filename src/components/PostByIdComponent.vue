@@ -7,7 +7,7 @@
           :body-style="{ padding: '0px' }"
           class="box-card post-card">
             <div slot="header" class="clearfix post-card-header">
-              <div class="post-user">
+              <div @click="showUserProfile(post.idUserOwner, post.nameUserOwner)" class="post-user">
                 <el-avatar
                 v-if="post.imageProfileUserOwner !== null"
                 :src="getUrlAvatarImage(post.imageProfileUserOwner)"
@@ -28,6 +28,11 @@
             <img v-if="post.idTypePost === 1"
             :src="getImage(post.file)" alt=""
             width="100%" class="image">
+            <video class="showPostById-action" v-else-if="post.idTypePost === 2"
+            width="100%"
+            controls>
+              <source :src="getVideo(post.file)" type="video/mp4">
+            </video>
             <div :style="{ paddingLeft: '15px', paddingRight: '15px' }">
               <LikePostComponent
               v-if="showLike"

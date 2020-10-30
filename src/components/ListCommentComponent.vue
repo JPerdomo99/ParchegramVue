@@ -5,7 +5,10 @@
         class="comment-container">
         <div class="comment">
             <div class="header-comment">
-              <strong @click="showUserProfile(post.idUser)">{{ comment.nameUser }}</strong>
+              <strong class="user-comment-action"
+              @click="showUserProfile(comment.idUser, comment.nameUser)">
+              {{ comment.nameUser }}
+              </strong>
               <el-dropdown
               class="actions-comment"
               @command="handleCommand"
@@ -252,6 +255,9 @@ form {
 }
 .actions-comment {
   margin-left: 5px;
+}
+.user-comment-action {
+  cursor: pointer;
 }
 </style>
 

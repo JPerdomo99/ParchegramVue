@@ -58,8 +58,8 @@ export const commonMixin = {
       const B = moment(date, 'YYYY-MM-DDTHH:mm:ss.SSS')
       return moment.duration(A.diff(B))._data.years
     },
-    showUserProfile (idUser) {
-      this.$router.push({ name: 'Profile', params: { id: idUser } })
+    showUserProfile (idUser, nameUser) {
+      this.$router.push({ name: 'Profile', params: { id: idUser, user: nameUser } })
     }
   }
 }

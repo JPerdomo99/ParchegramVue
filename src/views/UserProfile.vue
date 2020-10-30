@@ -1,6 +1,6 @@
 <template>
   <div class="userProfile">
-    <UserProfileComponent :idUser="Number.parseInt($route.params.id)"></UserProfileComponent>
+    <UserProfileComponent :idUser="Number.parseInt($route.params.id)" :user="$route.params.user"></UserProfileComponent>
   </div>
 </template>
 

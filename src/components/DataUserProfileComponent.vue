@@ -1,48 +1,44 @@
 <template>
   <div class="dataUserProfileComponent">
-    <el-row type="flex" justify="center">
-      <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
-        <el-card
-        :body-style="{ padding: '0px' }"
-        class="box-card">
-          <div class="data-user-profile-container">
-            <div class="image-user">
-              <el-avatar
-              v-if="user.imageProfile !== null"
-              class="avatar-orbe"
-              :src="getUrlAvatarImage(user.imageProfile)"
-              :size="100">
-              </el-avatar>
-              <el-avatar
-              v-else
-              :src="avatarDefault"
-              :size="100">
-              </el-avatar>
-            </div>
-            <div class="data-user">
-              <p class="name-user">@{{ user.nameUser }}</p>
-              <p class="email">{{ user.email }}</p>
-              <p class="age">{{ getAge(user.dateBirth) }} años</p>
-            </div>
-            <div class="follow-button">
-              <el-button
-              v-if="user.follow"
-              size="medium"
-              type="primary" round plain>
-              Dejar de seguir
-              </el-button>
-              <el-button
-              v-else
-              size="medium"
-              type="primary"
-              round>
-              Seguir
-              </el-button>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+    <el-card
+    :body-style="{ padding: '0px' }"
+    class="box-card">
+      <div class="data-user-profile-container">
+        <div class="image-user">
+          <el-avatar
+          v-if="user.imageProfile !== null"
+          class="avatar-orbe"
+          :src="getUrlAvatarImage(user.imageProfile)"
+          :size="100">
+          </el-avatar>
+          <el-avatar
+          v-else
+          :src="avatarDefault"
+          :size="100">
+          </el-avatar>
+        </div>
+        <div class="data-user">
+          <p class="name-user">@{{ user.nameUser }}</p>
+          <p class="email">{{ user.email }}</p>
+          <p class="age">{{ getAge(user.dateBirth) }} años</p>
+        </div>
+        <div class="follow-button">
+          <el-button
+          v-if="user.follow"
+          size="medium"
+          type="primary" round plain>
+          Dejar de seguir
+          </el-button>
+          <el-button
+          v-else
+          size="medium"
+          type="primary"
+          round>
+          Seguir
+          </el-button>
+        </div>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -102,6 +98,7 @@ export default {
 <style scoped>
 .dataUserProfileComponent {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 .data-user-profile-container {
   padding: 15px 0;
@@ -118,7 +115,7 @@ export default {
 }
 @keyframes orbe {
   from {
-      box-shadow: 0 0 10px 2px #409EFF;
+      box-shadow: 0 0 14px 2px #409EFF;
   }
   to {
       box-shadow: 0 0 5px 2px #409EFF;

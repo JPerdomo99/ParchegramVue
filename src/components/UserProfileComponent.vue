@@ -1,22 +1,27 @@
 <template>
   <div class="userProfileComponent">
-    <DataUserProfileComponent :idUser="idUser"></DataUserProfileComponent>
-    <!-- <ListPostUserProfileComponent :idUser="idUser"></ListPostUserProfileComponent> -->
+    <el-row type="flex" justify="center">
+      <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
+        <DataUserProfileComponent :idUser="idUser"></DataUserProfileComponent>
+        <ListPostUserProfileComponent :nameUser="user"></ListPostUserProfileComponent>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import DataUserProfileComponent from '@/components/DataUserProfileComponent.vue'
-// import ListPostUserProfileComponent from '@/components/ListPostUserProfileComponent.vue'
+import ListPostUserProfileComponent from '@/components/ListPostUserProfileComponent.vue'
 
 export default {
   name: 'UserProfileComponent',
   components: {
-    DataUserProfileComponent
-    // ListPostUserProfileComponent
+    DataUserProfileComponent,
+    ListPostUserProfileComponent
   },
   props: {
-    idUser: Number
+    idUser: Number,
+    user: String
   }
 }
 </script>
