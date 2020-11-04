@@ -51,7 +51,7 @@ import { commonMixin } from '@/mixins/Common.js'
 export default {
   name: 'DataUserProfileComponent.vue',
   props: {
-    idUser: Number
+    nameUserProp: String
   },
   directives: {
     moment
@@ -72,7 +72,7 @@ export default {
   methods: {
     async getUserById () {
       await axios
-        .get(`https://localhost:44377/api/User/GetById/${this.idUser}/${this.$session.get('nameUser')}`)
+        .get(`https://localhost:44377/api/User/GetByNameUser/${this.nameUserProp}/${this.$session.get('nameUser')}`)
         .then(result => {
           this.setModel(result.data.data)
         })

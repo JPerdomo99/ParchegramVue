@@ -1,10 +1,10 @@
 <template>
   <div class="listPostUserProfileComponent">
-      <el-tabs type="card">
-      <el-tab-pane label="Todo"><ListPostComponent :nameUser="nameUser"></ListPostComponent></el-tab-pane>
-      <el-tab-pane label="Pensamientos"><ListPostComponent :nameUser="nameUser" :idTypePost="3"></ListPostComponent></el-tab-pane>
-      <el-tab-pane label="Imagenes"><ListPostComponent :nameUser="nameUser" :idTypePost="1"></ListPostComponent></el-tab-pane>
-      <el-tab-pane label="Videos"><ListPostComponent :nameUser="nameUser" :idTypePost="2"></ListPostComponent></el-tab-pane>
+      <el-tabs :stretch="true" type="card">
+      <el-tab-pane label="Todo"><ListPostComponent :nameUser="nameUser" :fromProfile="true"></ListPostComponent></el-tab-pane>
+      <el-tab-pane label="Pensamientos"><ListPostComponent :nameUser="nameUser" :idTypePost="3" :fromProfile="true"></ListPostComponent></el-tab-pane>
+      <el-tab-pane label="Imagenes"><ListPostComponent :nameUser="nameUser" :idTypePost="1" :fromProfile="true"></ListPostComponent></el-tab-pane>
+      <el-tab-pane label="Videos"><ListPostComponent :nameUser="nameUser" :idTypePost="2" :fromProfile="true"></ListPostComponent></el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -23,6 +23,14 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.listPostUserProfileComponent .el-tabs .el-tabs__header {
+  margin: 0;
+  background: #fff;
+  border-radius: 15px;
+  border: none;
+}
+.listPostUserProfileComponent .el-tabs .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll .el-tabs__nav .is-active {
+  border-bottom: none !important;
+}
 </style>

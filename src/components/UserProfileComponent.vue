@@ -2,7 +2,7 @@
   <div class="userProfileComponent">
     <el-row type="flex" justify="center">
       <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="12">
-        <DataUserProfileComponent :idUser="idUser"></DataUserProfileComponent>
+        <DataUserProfileComponent :nameUserProp="user"></DataUserProfileComponent>
         <ListPostUserProfileComponent :nameUser="user"></ListPostUserProfileComponent>
       </el-col>
     </el-row>

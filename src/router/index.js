@@ -37,7 +37,7 @@ const routes = [
     component: PostById
   },
   {
-    path: '/profile/:id/:user',
+    path: '/profile/:user',
     name: 'Profile',
     component: UserProfile
   }

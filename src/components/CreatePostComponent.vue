@@ -144,35 +144,41 @@ export default {
 }
 </script>
 
+<style scoped>
+.createPostComponent {
+  margin-bottom: 22px;
+}
+</style>
+
 <style>
-    .el-textarea__inner {
-        background: #f9f9f9 !important;
-        border: none !important;
-        resize: none !important;
-        border-radius: 25px !important;
-    }
-    .homeComponent {
-      margin-top: 20px;
-    }
-    .titleNewPost {
-      margin-bottom: 10px;
-    }
-    .textarea-form-item {
-      margin-bottom: 10px !important;
-    }
-    .upload-file-form-item {
-      margin-bottom: 0 !important;
-    }
-    .upload  {
-      height: 38px;
-    }
-    .el-input__count {
-      background: #f9f9f9 !important;
-    }
-    .el-card {
-      border-radius: 15px !important;
-    }
-    .el-card__body {
-      padding: 8px;
-    }
+.el-textarea__inner {
+    background: #f9f9f9 !important;
+    border: none !important;
+    resize: none !important;
+    border-radius: 25px !important;
+}
+.homeComponent {
+  margin-top: 20px;
+}
+.titleNewPost {
+  margin-bottom: 10px;
+}
+.textarea-form-item {
+  margin-bottom: 10px !important;
+}
+.upload-file-form-item {
+  margin-bottom: 0 !important;
+}
+.upload  {
+  height: 38px;
+}
+.el-input__count {
+  background: #f9f9f9 !important;
+}
+.el-card {
+  border-radius: 15px !important;
+}
+.el-card__body {
+  padding: 8px;
+}
 </style>

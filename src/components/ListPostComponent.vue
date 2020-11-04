@@ -1,7 +1,8 @@
 <template>
   <div class="listPostComponent"
   v-infinite-scroll="loadMore"
-  :infinite-scroll-disabled="disabled">
+  :infinite-scroll-disabled="disabled"
+  infinite-scroll-distance="15">
     <el-card v-for="(post, index) in posts" :key="index" :body-style="{ padding: '0px' }"
     class="box-card post-card">
       <div v-if="post.idUserShare !== 0"
@@ -22,7 +23,7 @@
           <span class="nameUser">{{ post.nameUserShare }}</span>
         </div>
         <div class="post-date">
-          <span>Compartido </span>
+          <span>Compartido</span>
           <span>{{ getDate(post.dateShare) }}</span>
         </div>
       </div>
@@ -54,8 +55,8 @@
         <CommentComponent :idPost="post.idPost" :limitComments="2" :saveLimitComments="3"></CommentComponent>
       </div>
     </el-card>
-    <NoMoreComponent :showNoMore="noMore"></NoMoreComponent>
-    <SpinnerComponent :showSpinner="scrollLoading"></SpinnerComponent>
+    <!-- <NoMoreComponent :showNoMore="noMore"></NoMoreComponent> -->
+    <!-- <SpinnerComponent :showSpinner="scrollLoading"></SpinnerComponent> -->
   </div>
 </template>
 
@@ -64,16 +65,16 @@ import axios from 'axios'
 import infiniteScroll from 'vue-infinite-scroll'
 import { avatarMixin } from '@/mixins/Avatar.js'
 import { commonMixin } from '@/mixins/Common.js'
-import NoMoreComponent from '@/components/NoMoreComponent.vue'
-import SpinnerComponent from '@/components/SpinnerComponent.vue'
+// import NoMoreComponent from '@/components/NoMoreComponent.vue'
+// import SpinnerComponent from '@/components/SpinnerComponent.vue'
 import CommentComponent from '@/components/CommentComponent.vue'
 import LikePostComponent from '@/components/LikePostComponent.vue'
 
 export default {
   name: 'ListPostComponent',
   components: {
-    NoMoreComponent,
-    SpinnerComponent,
+    // NoMoreComponent,
+    // SpinnerComponent,
     CommentComponent,
     LikePostComponent
   },
@@ -82,7 +83,8 @@ export default {
       type: Number,
       default: 0
     },
-    nameUser: String
+    nameUser: String,
+    fromProfile: Boolean
   },
   directives: {
     infiniteScroll
@@ -94,7 +96,8 @@ export default {
       page: 1,
       totalRows: 0,
       disabled: false,
-      full: false
+      full: false,
+      executing: false
     }
   },
   computed: {
@@ -108,10 +111,18 @@ export default {
   methods: {
     async loadMore () {
       // Si no hay mas post no haga mas peticiones
-      if (!this.full) {
+      if (!this.full && !this.executing) {
+        console.log(`Entro a consultar a la pagina ${this.page}`)
         this.disabled = true
+        this.executing = true
+        let url = ''
+        if (this.fromProfile) {
+          url = `https://localhost:44377/api/Post/GetPosts/${this.nameUser}/${this.page}/${this.idTypePost}/${this.$session.get('nameUser')}`
+        } else {
+          url = `https://localhost:44377/api/Post/GetPosts/${this.$session.get('nameUser')}/${this.page}`
+        }
         await axios
-          .get(`https://localhost:44377/api/Post/GetPosts/${this.nameUser}/${this.page}/${this.idTypePost}`)
+          .get(url)
           .then(result => {
             if (result.data.success === 1) {
               const data = result.data.data
@@ -121,18 +132,16 @@ export default {
                 this.posts.push(post)
               })
               this.full = ((this.posts).length === this.totalRows)
+              this.page = this.page + 1
             } else {
               console.error('Respuesta erronea!')
             }
-          })
-          .then(() => {
-            this.page++
-            this.disabled = false
           })
           .catch(error => {
             console.error(error)
           })
           .finally(() => {
+            this.executing = false
             this.disabled = false
           })
       }
@@ -140,16 +149,16 @@ export default {
     showPostById (idPost) {
       this.$router.push({ name: 'Post', params: { id: idPost } })
     }
-  },
-  async mounted () {
-    await this.loadMore()
   }
+  // async mounted () {
+  //   await this.loadMore()
+  // }
 }
 </script>
 
 <style scoped>
 .post-card {
-  margin-top: 15px !important;
+  margin-bottom: 15px;
 }
 .showPostById-action {
   cursor: pointer;
