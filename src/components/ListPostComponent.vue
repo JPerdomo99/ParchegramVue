@@ -10,7 +10,7 @@
       :style="{ marginBottom: '10px' }"
       class="clearfix post-card-header">
         <div class="post-user"
-        @click="showUserProfile(post.idUserShare, post.NameUserShare)">
+        @click="showUserProfile(post.idUserShare, post.nameUserShare)">
           <el-avatar v-if="post.imageProfileUserShare !== null"
           :src="getUrlAvatarImage(post.imageProfileUserShare)"
           class="avatar"

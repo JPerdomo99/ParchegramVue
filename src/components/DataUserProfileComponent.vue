@@ -22,21 +22,8 @@
           <p class="email">{{ user.email }}</p>
           <p class="age">{{ getAge(user.dateBirth) }} años</p>
         </div>
-        <div class="follow-button">
-          <el-button
-          v-if="user.follow"
-          size="medium"
-          type="primary" round plain>
-          Dejar de seguir
-          </el-button>
-          <el-button
-          v-else
-          size="medium"
-          type="primary"
-          round>
-          Seguir
-          </el-button>
-        </div>
+        <FollowComponent :idUserFollowing="user.IdUser"
+        :userFollowProp="user.follow"></FollowComponent>
       </div>
     </el-card>
   </div>
@@ -47,15 +34,17 @@ import axios from 'axios'
 import moment from 'moment'
 import { avatarMixin } from '@/mixins/Avatar.js'
 import { commonMixin } from '@/mixins/Common.js'
+import FollowComponent from '@/components/FollowComponent.vue'
 
 export default {
   name: 'DataUserProfileComponent.vue',
+  components: {
+    FollowComponent
+  },
   props: {
     nameUserProp: String
   },
-  directives: {
-    moment
-  },
+  directives: { moment },
   mixins: [avatarMixin, commonMixin],
   data () {
     return {
@@ -77,7 +66,7 @@ export default {
           this.setModel(result.data.data)
         })
         .catch(error => {
-          console.log(error)
+          console.error(error)
         })
     },
     setModel (data) {
