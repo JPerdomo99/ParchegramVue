@@ -4,20 +4,28 @@
       <NavComponent></NavComponent>
     </div>
     <router-view/>
+    <ChatComponent v-if="loginState"></ChatComponent>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { commonMixin } from '@/mixins/Common.js'
 import NavComponent from '@/components/NavComponent.vue'
+import ChatComponent from '@/components/ChatComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    NavComponent
+    NavComponent,
+    ChatComponent
   },
-  data () {
-    return {
-    }
+  mixins: [commonMixin],
+  computed: {
+    ...mapState(['loginState'])
+  },
+  created () {
+    if (this.$session.has('jwt')) this.connectToChatHub()
   }
 }
 </script>

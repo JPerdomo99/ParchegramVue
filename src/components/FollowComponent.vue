@@ -2,12 +2,14 @@
   <div class="followComponent">
     <div>
       <el-button
+      @click="deleteFollow()"
       v-if="userFollow"
       size="medium"
       type="primary" round plain>
       Dejar de seguir
       </el-button>
       <el-button
+      @click="addFollow()"
       v-else
       size="medium"
       type="primary"

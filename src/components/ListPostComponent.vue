@@ -23,7 +23,7 @@
           <span class="nameUser">{{ post.nameUserShare }}</span>
         </div>
         <div class="post-date">
-          <span>Compartido</span>
+          <span>Compartido </span>
           <span>{{ getDate(post.dateShare) }}</span>
         </div>
       </div>
@@ -125,9 +125,9 @@ export default {
           .get(url)
           .then(result => {
             if (result.data.success === 1) {
-              const data = result.data.data
-              this.totalRows = data.totalRows
-              const posts = data.postList
+              const DATA = result.data.data
+              this.totalRows = DATA.totalRows
+              const posts = DATA.postList
               posts.forEach(post => {
                 this.posts.push(post)
               })

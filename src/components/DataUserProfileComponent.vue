@@ -22,7 +22,9 @@
           <p class="email">{{ user.email }}</p>
           <p class="age">{{ getAge(user.dateBirth) }} años</p>
         </div>
-        <FollowComponent :idUserFollowing="user.IdUser"
+        <FollowComponent
+        v-if="showFollow"
+        :idUserFollowing="user.id"
         :userFollowProp="user.follow"></FollowComponent>
       </div>
     </el-card>
@@ -55,7 +57,8 @@ export default {
         imageProfile: null,
         dateBirth: '',
         follow: false
-      }
+      },
+      showFollow: false
     }
   },
   methods: {
@@ -80,6 +83,13 @@ export default {
   },
   async mounted () {
     await this.getUserById()
+      .then(() => {
+        this.showFollow = true
+      })
+      .catch(error => {
+        this.showFollow = false
+        console.error(error)
+      })
   }
 }
 </script>

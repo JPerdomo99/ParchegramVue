@@ -60,6 +60,18 @@ export const commonMixin = {
     },
     showUserProfile (idUser, nameUser) {
       this.$router.push({ name: 'Profile', params: { id: idUser, user: nameUser } })
+    },
+    connectToChatHub () {
+      this.$socket.authenticate(this.$session.get('jwt'), {
+        log: true
+      }).then(() => {
+        this.newInstance()
+      }).catch(err => {
+        console.error(err)
+      })
+    },
+    newInstance () {
+      this.$socket.invoke('NewInstance', this.$session.get('nameUser'))
     }
   }
 }

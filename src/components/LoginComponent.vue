@@ -22,6 +22,7 @@
 import axios from 'axios'
 import { mapMutations } from 'vuex'
 import { avatarMixin } from '@/mixins/Avatar.js'
+import { commonMixin } from '@/mixins/Common.js'
 import CarouselLoginComponent from '@/components/CarouselLoginComponent.vue'
 
 export default {
@@ -34,7 +35,7 @@ export default {
     marginTop: Number,
     labelPosition: String
   },
-  mixins: [avatarMixin],
+  mixins: [avatarMixin, commonMixin],
   data () {
     return {
       loginModel: {
@@ -91,6 +92,7 @@ export default {
                           s.set('avatar', avatar)
                           d.setImageProfile(s.get('avatar'))
                         }
+                        d.connectToChatHub()
                         d.$router.push({ name: 'Home' })
                         d.loginNav()
                       }
