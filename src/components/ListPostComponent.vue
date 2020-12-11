@@ -97,7 +97,8 @@ export default {
       totalRows: 0,
       disabled: false,
       full: false,
-      executing: false
+      executing: false,
+      count: []
     }
   },
   computed: {
@@ -127,8 +128,8 @@ export default {
             if (result.data.success === 1) {
               const DATA = result.data.data
               this.totalRows = DATA.totalRows
-              const posts = DATA.postList
-              posts.forEach(post => {
+              const POSTS = DATA.postList
+              POSTS.forEach(post => {
                 this.posts.push(post)
               })
               this.full = ((this.posts).length === this.totalRows)
