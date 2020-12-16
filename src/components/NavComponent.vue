@@ -5,13 +5,16 @@
                 <el-menu-item><router-link class="router-link" :to="{ name: 'Home' }"><h1>Parchegram</h1></router-link></el-menu-item>
             </div>
             <div class="search" v-if="loginState">
-                <el-menu-item class="item">
+                <!-- <el-menu-item class="item">
                   <el-input
                   placeholder="Buscar"
                   prefix-icon="el-icon-search"
                   class="search-text"
                   size="small">
                   </el-input>
+                </el-menu-item> -->
+                <el-menu-item class="item">
+                  <SearchUserComponent></SearchUserComponent>
                 </el-menu-item>
             </div>
             <div class="menu-items" v-if="loginState">
@@ -44,13 +47,18 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { avatarMixin } from '@/mixins/Avatar.js'
+import SearchUserComponent from '@/components/SearchUserComponent.vue'
 
 export default {
   name: 'NavComponent',
+  components: {
+    SearchUserComponent
+  },
   mixins: [avatarMixin],
   data () {
     return {
-      activeIndex: '1'
+      activeIndex: '1',
+      value: []
     }
   },
   methods: {
@@ -157,8 +165,5 @@ i {
   .search-text {
     transform: translateY(-5px);
   }
-}
-.search-text .el-input__inner {
-  border-radius: 15px;
 }
 </style>
