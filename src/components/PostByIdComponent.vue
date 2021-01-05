@@ -91,7 +91,7 @@ export default {
   methods: {
     async getPost () {
       await axios
-        .get(`https://localhost:44377/api/Post/GetPostById/${this.id}`)
+        .get(`http://julian1999-001-site1.btempurl.com/api/Post/GetPostById/${this.id}`)
         .then(result => {
           this.setModel(result.data.data)
           this.showLike = true

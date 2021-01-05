@@ -118,9 +118,9 @@ export default {
         this.executing = true
         let url = ''
         if (this.fromProfile) {
-          url = `https://localhost:44377/api/Post/GetPosts/${this.nameUser}/${this.page}/${this.idTypePost}/${this.$session.get('nameUser')}`
+          url = `http://julian1999-001-site1.btempurl.com/api/Post/GetPosts/${this.nameUser}/${this.page}/${this.idTypePost}/${this.$session.get('nameUser')}`
         } else {
-          url = `https://localhost:44377/api/Post/GetPosts/${this.$session.get('nameUser')}/${this.page}`
+          url = `http://julian1999-001-site1.btempurl.com/api/Post/GetPosts/${this.$session.get('nameUser')}/${this.page}`
         }
         await axios
           .get(url)

@@ -69,15 +69,15 @@ export default {
     async login () {
       const loginRequest = this.loginModel
       await axios
-        .post('https://localhost:44377/api/User/UserExists', loginRequest)
+        .post('http://julian1999-001-site1.btempurl.com/api/User/UserExists', loginRequest)
         .then(result => {
           if (result.data.data === true) {
             axios
-              .get(`https://localhost:44377/api/User/EmailConfirmed/${this.loginModel.NameUser}`)
+              .get(`http://julian1999-001-site1.btempurl.com/api/User/EmailConfirmed/${this.loginModel.NameUser}`)
               .then(result => {
                 if (result.data.data === true) {
                   axios
-                    .post('https://localhost:44377/api/User/Login', loginRequest)
+                    .post('http://julian1999-001-site1.btempurl.com/api/User/Login', loginRequest)
                     .then(result => {
                       if (result.status === 200 && result.data.data.token) {
                         const dataResponse = result.data.data

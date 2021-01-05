@@ -47,7 +47,7 @@ export default {
     async addFollow () {
       this.userFollow = true
       await axios
-        .get(`https://localhost:44377/api/Follow/Add/${this.$session.get('nameUser')}/${this.idUserFollowing}`)
+        .get(`http://julian1999-001-site1.btempurl.com/api/Follow/Add/${this.$session.get('nameUser')}/${this.idUserFollowing}`)
         .then(result => {
           if (result.data.success !== 1) {
             this.userFollow = false
@@ -63,7 +63,7 @@ export default {
     async deleteFollow () {
       this.userFollow = false
       await axios
-        .get(`https://localhost:44377/api/Follow/Delete/${this.$session.get('nameUser')}/${this.idUserFollowing}`)
+        .get(`http://julian1999-001-site1.btempurl.com/api/Follow/Delete/${this.$session.get('nameUser')}/${this.idUserFollowing}`)
         .then(result => {
           if (result.data.success !== 1) {
             this.userFollow = true

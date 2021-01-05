@@ -5,14 +5,6 @@
                 <el-menu-item><router-link class="router-link" :to="{ name: 'Home' }"><h1>Parchegram</h1></router-link></el-menu-item>
             </div>
             <div class="search" v-if="loginState">
-                <!-- <el-menu-item class="item">
-                  <el-input
-                  placeholder="Buscar"
-                  prefix-icon="el-icon-search"
-                  class="search-text"
-                  size="small">
-                  </el-input>
-                </el-menu-item> -->
                 <el-menu-item class="item">
                   <SearchUserComponent></SearchUserComponent>
                 </el-menu-item>

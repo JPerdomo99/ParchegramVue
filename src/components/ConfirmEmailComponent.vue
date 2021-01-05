@@ -15,7 +15,7 @@ export default {
     confirmEmail () {
       const codeConfirmEmail = this.$route.params.codeConfirmEmail
       axios
-        .post('https://localhost:44377/api/User/ConfirmEmail',
+        .post('http://julian1999-001-site1.btempurl.com/api/User/ConfirmEmail',
           JSON.stringify(codeConfirmEmail),
           { headers: { 'Content-Type': 'application/json' } })
         .then(result => {

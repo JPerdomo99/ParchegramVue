@@ -134,7 +134,7 @@ export default {
     },
     async deleteComment (idComment, nameUser) {
       await axios
-        .delete(`https://localhost:44377/api/Comment/Delete/${this.idPost}/${idComment}/${nameUser}`)
+        .delete(`http://julian1999-001-site1.btempurl.com/api/Comment/Delete/${this.idPost}/${idComment}/${nameUser}`)
         .then(result => {
           if (result.data.success === 1) {
             this.getListComment(this.limitComments)
@@ -150,7 +150,7 @@ export default {
     async editComment (idComment) {
       this.buildBody(idComment)
       await axios
-        .put('https://localhost:44377/api/Comment/Update', this.commentModel)
+        .put('http://julian1999-001-site1.btempurl.com/api/Comment/Update', this.commentModel)
         .then(result => {
           if (result.data.success === 1) {
             this.listCommentProp[this.indexTarget].commentText = this.commentTarget

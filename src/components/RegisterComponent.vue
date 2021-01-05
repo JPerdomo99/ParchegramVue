@@ -97,15 +97,15 @@ export default {
     register () {
       const registerRequest = this.registerModel
       axios
-        .get(`https://localhost:44377/api/User/NameUserUnique/${registerRequest.NameUser}`)
+        .get(`http://julian1999-001-site1.btempurl.com/api/User/NameUserUnique/${registerRequest.NameUser}`)
         .then(result => {
           if (result.data.data === true) {
             axios
-              .get(`https://localhost:44377/api/User/EmailUnique/${registerRequest.Email}`)
+              .get(`http://julian1999-001-site1.btempurl.com/api/User/EmailUnique/${registerRequest.Email}`)
               .then(result => {
                 if (result.data.data === true) {
                   axios
-                    .post('https://localhost:44377/api/User/Register', registerRequest)
+                    .post('http://julian1999-001-site1.btempurl.com/api/User/Register', registerRequest)
                     .then(result => {
                       if (result.data.succes === 1) {
                         this.$notify({

@@ -8,10 +8,10 @@ import locale from 'element-ui/lib/locale/lang/es'
 import VueSession from 'vue-session'
 import VueSignalR from '@latelier/vue-signalr'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 Vue.use(ElementUI, { locale })
 Vue.use(VueSession)
-Vue.use(VueSignalR, 'https://localhost:44377/chathub')
+Vue.use(VueSignalR, 'http://julian1999-001-site1.btempurl.com/chathub')
 
 new Vue({
   router,

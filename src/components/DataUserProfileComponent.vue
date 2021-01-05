@@ -64,7 +64,7 @@ export default {
   methods: {
     async getUserById () {
       await axios
-        .get(`https://localhost:44377/api/User/GetByNameUser/${this.nameUserProp}/${this.$session.get('nameUser')}`)
+        .get(`http://julian1999-001-site1.btempurl.com/api/User/GetByNameUser/${this.nameUserProp}/${this.$session.get('nameUser')}`)
         .then(result => {
           this.setModel(result.data.data)
         })
