@@ -11,7 +11,6 @@
             </div>
             <div class="menu-items" v-if="loginState">
                 <el-menu-item class="item" index="1"><i class="el-icon-s-home"></i></el-menu-item>
-                <!-- <el-menu-item class="item"><i class="el-icon-chat-dot-round"></i></el-menu-item> -->
                 <el-menu-item>
                   <el-dropdown trigger="click">
                     <el-avatar class="avatar-nav" v-if="imageProfile !== ''" :size="25" :src="imageProfile"></el-avatar>
