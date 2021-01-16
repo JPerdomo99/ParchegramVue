@@ -19,7 +19,7 @@
                             ref="avatarUpload"
                             :multiple="false"
                             :limit="1"
-                            action="http://julian1999-001-site1.btempurl.com/api/User/ActionUpload"
+                            action="http://parchegramtest.com/api/User/ActionUpload"
                             :auto-upload="true"
                             :on-change="handleChange"
                             :before-upload="beforeAvatarUpload">
@@ -97,7 +97,7 @@ export default {
       this.showLoading()
       if (this.$session.get('nameUser')) {
         await axios
-          .post('http://julian1999-001-site1.btempurl.com/api/User/UserConfig', this.buildFormData())
+          .post('http://parchegramtest.com/api/User/UserConfig', this.buildFormData())
           .then(result => {
             // Respuesta exitosa
             if (result.data.success === 1) {

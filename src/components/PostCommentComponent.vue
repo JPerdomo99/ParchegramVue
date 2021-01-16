@@ -72,7 +72,7 @@ export default {
     async saveComment () {
       this.showLoading()
       await axios
-        .post('http://julian1999-001-site1.btempurl.com/api/Comment/Create', this.commentModel)
+        .post('http://parchegramtest.com/api/Comment/Create', this.commentModel)
         .then(result => {
           if (result.data.success === 1) {
             this.getListComment(this.saveLimitComments)

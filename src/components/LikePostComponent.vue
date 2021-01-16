@@ -36,7 +36,7 @@ export default {
     async addLike () {
       this.addLikeSet()
       await axios
-        .post('http://julian1999-001-site1.btempurl.com/api/Like/Add', this.buildModel())
+        .post('http://parchegramtest.com/api/Like/Add', this.buildModel())
         .then(result => {
           if (result.data.success !== 1) {
             this.deleteLikeSet()
@@ -53,7 +53,7 @@ export default {
     async deleteLike () {
       this.deleteLikeSet()
       await axios
-        .delete(`http://julian1999-001-site1.btempurl.com/api/Like/Delete/${this.idPost}/${this.$session.get('nameUser')}`)
+        .delete(`http://parchegramtest.com/api/Like/Delete/${this.idPost}/${this.$session.get('nameUser')}`)
         .then(result => {
           if (result.data.success !== 1) {
             this.addLikeSet()

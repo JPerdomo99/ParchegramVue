@@ -9,7 +9,7 @@ export const commentMixin = {
   methods: {
     async getListComment (limit) {
       await axios
-        .get(`http://julian1999-001-site1.btempurl.com/api/Comment/Get/${this.idPost}/${limit}`)
+        .get(`http://parchegramtest.com/api/Comment/Get/${this.idPost}/${limit}`)
         .then(result => {
           this.listComment = []
           const COMMENTS = JSON.parse(JSON.stringify(result.data.data))

@@ -59,7 +59,7 @@ export default {
   methods: {
     async getFollowings () {
       await axios
-        .get(`http://julian1999-001-site1.btempurl.com/api/Follow/Get/${this.$session.get('nameUser')}`)
+        .get(`http://parchegramtest.com/api/Follow/Get/${this.$session.get('nameUser')}`)
         .then(result => {
           this.followings = result.data.data
         })
@@ -90,7 +90,7 @@ export default {
     async getMessages (sender, receiver) {
       let messages = []
       await axios
-        .get(`http://julian1999-001-site1.btempurl.com/api/Message/Get/${sender}/${receiver}`)
+        .get(`http://parchegramtest.com/api/Message/Get/${sender}/${receiver}`)
         .then((result) => {
           messages = result.data.data
         })

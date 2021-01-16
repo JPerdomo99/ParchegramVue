@@ -24,7 +24,7 @@
               ref="fileUpload"
               :multiple="false"
               :limit="1"
-              action="http://julian1999-001-site1.btempurl.com/api/Post/ActionUpload"
+              action="http://parchegramtest.com/api/Post/ActionUpload"
               :auto-upload="true"
               :on-change="handleChange"
               :before-upload="beforeFileUpload">
@@ -89,7 +89,7 @@ export default {
       this.showLoading()
       if (this.$session.exists()) {
         await axios
-          .post('http://julian1999-001-site1.btempurl.com/api/Post/Create', this.buildFormData())
+          .post('http://parchegramtest.com/api/Post/Create', this.buildFormData())
           .then(result => {
             if (result.data.success === 1) {
               this.clearForm(postModel, fileUpload)

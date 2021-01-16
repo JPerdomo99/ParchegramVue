@@ -48,7 +48,7 @@ export default {
       if (nameUserOrEmail === '') return
       this.loading = true
       await axios
-        .get(`http://julian1999-001-site1.btempurl.com/api/User/Get/${nameUserOrEmail}`)
+        .get(`http://parchegramtest.com/api/User/Get/${nameUserOrEmail}`)
         .then(result => {
           const DATA = result.data.data
           let i = 0
